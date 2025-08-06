@@ -11,7 +11,7 @@ This is a work-in-progress project for building a language learning platform.
 
 ## Planned Tech Stack
 
-- **Frontend**: React + Tailwind CSS  
+- **Frontend**: React + CSS  
 - **Backend**: Node.js + Express  
 - **Database**: MySQL  
 - **Authentication**: JWT  <h1>Language Learning Platform </h1>
