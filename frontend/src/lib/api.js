@@ -29,6 +29,15 @@ export const completeOnboarding = async (userData) => {
   return response.data;
 };
 
+export const uploadAvatar = async (file) => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const response = await axiosInstance.post("/uploads/avatar", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export async function getUserFriends() {
   const response = await axiosInstance.get("/users/friends");
   return response.data;

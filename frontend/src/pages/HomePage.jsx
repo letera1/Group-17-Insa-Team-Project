@@ -42,7 +42,8 @@ const HomePage = () => {
     const outgoingIds = new Set();
     if (outgoingFriendReqs && outgoingFriendReqs.length > 0) {
       outgoingFriendReqs.forEach((req) => {
-        outgoingIds.add(req._id);
+        // FIXED: Use recipient._id instead of req._id to track which users we've sent requests to
+        outgoingIds.add(req.recipient._id);
       });
       setOutgoingRequestsIds(outgoingIds);
     }
@@ -137,18 +138,20 @@ const HomePage = () => {
 
                       {user.bio && <p className="text-sm opacity-70">{user.bio}</p>}
 
-                      {/* Action button */}
+                      {/* Action button - IMPROVED STYLING */}
                       <button
-                        className={`btn w-full mt-2 ${
-                          hasRequestBeenSent ? "btn-disabled" : "btn-primary"
-                        } `}
+                        className={`btn w-full mt-2 transition-all duration-300 ${
+                          hasRequestBeenSent 
+                            ? "btn-success text-white shadow-lg" 
+                            : "btn-primary hover:btn-primary-focus"
+                        }`}
                         onClick={() => sendRequestMutation(user._id)}
                         disabled={hasRequestBeenSent || isPending}
                       >
                         {hasRequestBeenSent ? (
                           <>
                             <CheckCircleIcon className="size-4 mr-2" />
-                            Request Sent
+                            Request Sent ✓
                           </>
                         ) : (
                           <>

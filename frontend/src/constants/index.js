@@ -163,35 +163,305 @@ export const THEMES = [
 ];
 
 export const LANGUAGES = [
-  "English",
-  "Spanish",
-  "French",
-  "German",
-  "Mandarin",
-  "Japanese",
-  "Korean",
-  "Hindi",
-  "Russian",
-  "Portuguese",
-  "Arabic",
-  "Italian",
-  "Turkish",
-  "Dutch",
+  // Ethiopian Languages (Alphabetically ordered)
+  "aari",
+  "afar",
+  "agaw",
+  "alaba-kabeena",
+  "amharic",
+  "anuak",
+  "argobba",
+  "awngi",
+  "bale",
+  "basketo",
+  "bena",
+  "berta",
+  "boro",
+  "burji",
+  "chaha",
+  "dawro",
+  "dime",
+  "dirasha",
+  "dizi",
+  "dorze",
+  "gamo",
+  "gedeo",
+  "gofa",
+  "gumuz",
+  "hadiya",
+  "hamar",
+  "harari",
+  "kambata",
+  "karo",
+  "kebena",
+  "konta",
+  "konso",
+  "koyra",
+  "kullo",
+  "kwegu",
+  "kuyyu",
+  "libido",
+  "maale",
+  "maban",
+  "mursi",
+  "nuer",
+  "nyangatom",
+  "omo",
+  "oromo",
+  "qemant",
+  "saho",
+  "sidama",
+  "silte",
+  "somali",
+  "suri",
+  "tigrinya",
+  "tirma",
+  "tsamai",
+  "tukuman",
+  "uduk",
+  "wolane",
+  "wolaytta",
+  "yem",
+  "zayse",
+  "zargulla",
+  // International Languages
+  "english",
+  "spanish",
+  "french",
+  "german",
+  "mandarin",
+  "japanese",
+  "korean",
+  "hindi",
+  "russian",
+  "portuguese",
+  "arabic",
+  "italian",
+  "turkish",
+  "dutch"
 ];
 
 export const LANGUAGE_TO_FLAG = {
-  english: "gb",
-  spanish: "es",
-  french: "fr",
-  german: "de",
-  mandarin: "cn",
-  japanese: "jp",
-  korean: "kr",
-  hindi: "in",
-  russian: "ru",
-  portuguese: "pt",
-  arabic: "sa",
-  italian: "it",
-  turkish: "tr",
-  dutch: "nl",
+  // Ethiopian Languages with Regional Flags
+  "aari": "et",
+  "afar": "et",
+  "agaw": "et",
+  "alaba-kabeena": "et",
+  "amharic": "et",
+  "anuak": "et",
+  "argobba": "et",
+  "awngi": "et",
+  "bale": "et",
+  "basketo": "et",
+  "bena": "et",
+  "berta": "et",
+  "boro": "et",
+  "burji": "et",
+  "chaha": "et",
+  "dawro": "et",
+  "dime": "et",
+  "dirasha": "et",
+  "dizi": "et",
+  "dorze": "et",
+  "gamo": "et",
+  "gedeo": "et",
+  "gofa": "et",
+  "gumuz": "et",
+  "hadiya": "et",
+  "hamar": "et",
+  "harari": "et",
+  "kambata": "et",
+  "karo": "et",
+  "kebena": "et",
+  "konta": "et",
+  "konso": "et",
+  "koyra": "et",
+  "kullo": "et",
+  "kwegu": "et",
+  "kuyyu": "et",
+  "libido": "et",
+  "maale": "et",
+  "maban": "et",
+  "mursi": "et",
+  "nuer": "et",
+  "nyangatom": "et",
+  "omo": "et",
+  "oromo": "et",
+  "qemant": "et",
+  "saho": "et",
+  "sidama": "et",
+  "silte": "et",
+  "somali": "et",
+  "suri": "et",
+  "tigrinya": "et",
+  "tirma": "et",
+  "tsamai": "et",
+  "tukuman": "et",
+  "uduk": "et",
+  "wolane": "et",
+  "wolaytta": "et",
+  "yem": "et",
+  "zayse": "et",
+  "zargulla": "et",
+
+  // International Languages with Country Flags
+  "english": "gb",
+  "spanish": "es",
+  "french": "fr",
+  "german": "de",
+  "mandarin": "cn",
+  "japanese": "jp",
+  "korean": "kr",
+  "hindi": "in",
+  "russian": "ru",
+  "portuguese": "pt",
+  "arabic": "sa",
+  "italian": "it",
+  "turkish": "tr",
+  "dutch": "nl"
+};
+
+// Language families for better organization
+export const LANGUAGE_FAMILIES = {
+  // Afro-Asiatic (Semitic, Cushitic, Omotic)
+  "afro-asiatic": ["amharic", "tigrinya", "harari", "argobba", "silte", "afar", "somali", "oromo", "sidama", "gedeo", "hadiya", "kambata", "burji", "saho", "agaw", "awngi", "qemant", "bilen", "beja"],
+  
+  // Nilo-Saharan
+  "nilo-saharan": ["anuak", "nuer", "nyangatom", "mursi", "surma", "gumuz", "berta", "komo", "maban", "koma", "kunama", "nara"],
+  
+  // Omotic
+  "omotic": ["wolaytta", "gamo", "gofa", "dawro", "basketo", "kullo", "dizi", "sheko", "yem", "karo", "hamar", "ari", "bodi", "tsamai", "maale", "dorze", "gidole", "koyra", "libido", "zayse", "zargulla", "chara", "gimira", "bench", "she", "yemsa", "kafa", "mocha", "gimira", "yem", "karo", "hamar", "ari", "bodi", "tsamai", "maale", "dorze", "gidole", "koyra", "libido", "zayse", "zargulla", "chara", "gimira", "bench", "she", "yemsa", "kafa", "mocha"],
+  
+  // Cushitic
+  "cushitic": ["afar", "somali", "oromo", "sidama", "gedeo", "hadiya", "kambata", "burji", "saho", "agaw", "awngi", "qemant", "bilen", "beja", "alaba-kabeena", "bale", "bena", "karo", "konso", "konta", "kwegu", "kuyyu", "mursi", "suri", "wolane", "dime", "dirasha", "kebena", "tirma", "tukuman", "uduk", "anuak", "nuer", "nyangatom", "omo", "saho"],
+  
+  // Semitic
+  "semitic": ["amharic", "tigrinya", "harari", "argobba", "silte", "geez", "gurage", "inor", "mesqan", "muher", "sebat bet", "silti", "zay", "chaha", "ezha", "gumer", "gyeto", "inor", "mesqan", "muher", "sebat bet", "silti", "zay"]
+};
+
+// Native names for Ethiopian languages
+export const LANGUAGE_NATIVE_NAMES = {
+  "amharic": "አማርኛ",
+  "tigrinya": "ትግርኛ",
+  "oromo": "Afaan Oromoo",
+  "somali": "Af-Soomaali",
+  "afar": "Afaraf",
+  "sidama": "Sidaamu Afoo",
+  "gedeo": "Afan Gedeo",
+  "hadiya": "Hadiyyisa",
+  "kambata": "Kambaatissa",
+  "harari": "ሐረሪ",
+  "wolaytta": "Wolaytta",
+  "gamo": "Gamo",
+  "gofa": "Gofa",
+  "dawro": "Dawro",
+  "kullo": "Kullo",
+  "dizi": "Dizi",
+  "yem": "Yemsa",
+  "karo": "Karo",
+  "hamar": "Hamar",
+  "ari": "Ari",
+  "bodi": "Bodi",
+  "tsamai": "Tsamai",
+  "maale": "Maale",
+  "dorze": "Dorze",
+  "gidole": "Gidole",
+  "koyra": "Koyra",
+  "libido": "Libido",
+  "zayse": "Zayse",
+  "zargulla": "Zargulla",
+  "chara": "Chara",
+  "gimira": "Gimira",
+  "bench": "Bench",
+  "she": "She",
+  "yemsa": "Yemsa",
+  "kafa": "Kafa",
+  "mocha": "Mocha",
+  "gurage": "ጉራጌ",
+  "inor": "Inor",
+  "mesqan": "Mesqan",
+  "muher": "Muher",
+  "sebat bet": "Sebat Bet",
+  "silti": "Silti",
+  "zay": "Zay",
+  "chaha": "Chaha",
+  "ezha": "Ezha",
+  "gumer": "Gumer",
+  "gyeto": "Gyeto"
+};
+
+// Language difficulty levels for learners
+export const LANGUAGE_DIFFICULTY = {
+  // Easy for English speakers
+  "easy": ["english", "spanish", "french", "italian", "portuguese", "dutch"],
+  
+  // Medium difficulty
+  "medium": ["german", "russian", "turkish", "amharic", "tigrinya", "oromo", "somali"],
+  
+  // Hard for English speakers
+  "hard": ["mandarin", "japanese", "korean", "arabic", "hindi", "afar", "sidama", "gedeo", "hadiya", "kambata", "harari", "wolaytta", "gamo", "gofa", "dawro", "kullo", "dizi", "yem", "karo", "hamar", "ari", "bodi", "tsamai", "maale", "dorze", "gidole", "koyra", "libido", "zayse", "zargulla", "chara", "gimira", "bench", "she", "yemsa", "kafa", "mocha", "gurage", "inor", "mesqan", "muher", "sebat bet", "silti", "zay", "chaha", "ezha", "gumer", "gyeto"]
+};
+
+// ISO language codes for API integration
+export const LANGUAGE_CODES = {
+  "amharic": "am",
+  "tigrinya": "ti",
+  "oromo": "om",
+  "somali": "so",
+  "afar": "aa",
+  "english": "en",
+  "spanish": "es",
+  "french": "fr",
+  "german": "de",
+  "mandarin": "zh",
+  "japanese": "ja",
+  "korean": "ko",
+  "hindi": "hi",
+  "russian": "ru",
+  "portuguese": "pt",
+  "arabic": "ar",
+  "italian": "it",
+  "turkish": "tr",
+  "dutch": "nl"
+};
+
+// Utility functions for language handling
+export const getLanguageInfo = (languageName) => {
+  const normalizedName = languageName.toLowerCase();
+  return {
+    name: languageName,
+    flag: LANGUAGE_TO_FLAG[normalizedName] || "un",
+    nativeName: LANGUAGE_NATIVE_NAMES[normalizedName] || languageName,
+    family: Object.entries(LANGUAGE_FAMILIES).find(([_, languages]) => 
+      languages.includes(normalizedName)
+    )?.[0] || "other",
+    difficulty: Object.entries(LANGUAGE_DIFFICULTY).find(([_, languages]) => 
+      languages.includes(normalizedName)
+    )?.[0] || "unknown",
+    code: LANGUAGE_CODES[normalizedName] || normalizedName
+  };
+};
+
+export const getLanguagesByFamily = (family) => {
+  return LANGUAGE_FAMILIES[family] || [];
+};
+
+export const getLanguagesByDifficulty = (difficulty) => {
+  return LANGUAGE_DIFFICULTY[difficulty] || [];
+};
+
+export const getEthiopianLanguages = () => {
+  return LANGUAGES.filter(lang => LANGUAGE_TO_FLAG[lang] === "et");
+};
+
+export const getInternationalLanguages = () => {
+  return LANGUAGES.filter(lang => LANGUAGE_TO_FLAG[lang] !== "et");
+};
+
+export const searchLanguages = (query) => {
+  const normalizedQuery = query.toLowerCase();
+  return LANGUAGES.filter(lang => 
+    lang.toLowerCase().includes(normalizedQuery) ||
+    (LANGUAGE_NATIVE_NAMES[lang] && LANGUAGE_NATIVE_NAMES[lang].toLowerCase().includes(normalizedQuery))
+  );
 };
