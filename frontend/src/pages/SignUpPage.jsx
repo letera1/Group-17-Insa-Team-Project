@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import messageIcon from '../public/logo.png';
+import img from '../public/img.png';
 import useSignUp from "../hooks/useSignUp";
 
 const SignUpPage = () => {
@@ -150,7 +151,7 @@ const SignUpPage = () => {
           <div className="max-w-md p-8">
             {/* Illustration */}
             <div className="relative aspect-square max-w-sm mx-auto">
-              <img src="/i.jpg" alt="Language connection illustration" className="w-full h-full" />
+              <img src={img} alt="Language connection illustration" className="w-full h-full" />
             </div>
 
             <div className="text-center space-y-3 mt-6">
