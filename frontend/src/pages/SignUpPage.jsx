@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import messageIcon from '../public/logo.png';
 import img from '../public/img.png';
 import useSignUp from "../hooks/useSignUp";
+import PasswordStrengthIndicator from "../components/PasswordStrengthIndicator";
+import { validatePassword } from "../lib/utils";
 
 const SignUpPage = () => {
   const [signupData, setSignupData] = useState({
@@ -27,8 +29,19 @@ const SignUpPage = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    signupMutation(signupData);
+    const sanitized = {
+      fullName: signupData.fullName.replace(/\s+/g, " ").trim(),
+      email: signupData.email.trim().toLowerCase(),
+      password: signupData.password,
+    };
+    signupMutation(sanitized);
   };
+
+  const namePattern = /^[A-Za-z\s]+$/;
+  const isNameValid = namePattern.test(signupData.fullName) && signupData.fullName.trim().length >= 2;
+  const isEmailValid = /[^\s@]+@[^\s@]+\.[^\s@]+/.test(signupData.email.trim());
+  const { isValid: isPasswordValid } = validatePassword(signupData.password);
+  const isFormValid = isNameValid && isEmailValid && isPasswordValid;
 
   return (
     <div
@@ -74,9 +87,19 @@ const SignUpPage = () => {
                       placeholder="John Doe"
                       className="input input-bordered w-full"
                       value={signupData.fullName}
-                      onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Allow letters and spaces only
+                        if (/^[A-Za-z\s]*$/.test(value)) {
+                          setSignupData({ ...signupData, fullName: value });
+                        }
+                      }}
+                      autoComplete="name"
+                      pattern="[A-Za-z\s]+"
+                      title="Letters and spaces only"
                       required
                     />
+                    <p className="text-xs opacity-70 mt-1">Letters and spaces only</p>
                   </div>
                   {/* EMAIL */}
                   <div className="form-control w-full">
@@ -89,6 +112,7 @@ const SignUpPage = () => {
                       className="input input-bordered w-full"
                       value={signupData.email}
                       onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+                      autoComplete="email"
                       required
                     />
                   </div>
@@ -103,11 +127,12 @@ const SignUpPage = () => {
                       className="input input-bordered w-full"
                       value={signupData.password}
                       onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+                      autoComplete="new-password"
                       required
                     />
-                    <p className="text-xs opacity-70 mt-1">
-                      Password must be at least 6 characters long
-                    </p>
+                    <div className="mt-3">
+                      <PasswordStrengthIndicator password={signupData.password} />
+                    </div>
                   </div>
 
                   <div className="form-control">
@@ -122,7 +147,7 @@ const SignUpPage = () => {
                   </div>
                 </div>
 
-                <button className="btn btn-primary w-full" type="submit">
+                <button className="btn btn-primary w-full" type="submit" disabled={!isFormValid || isPending}>
                   {isPending ? (
                     <>
                       <span className="loading loading-spinner loading-xs"></span>

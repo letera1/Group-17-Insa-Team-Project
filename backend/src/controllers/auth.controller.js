@@ -10,17 +10,64 @@ export async function signup(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    // Normalize inputs
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedFullName = fullName.trim().replace(/\s+/g, " ");
+
+    // Validate full name (letters and spaces only, 2-50 chars)
+    if (!/^[A-Za-z\s]+$/.test(normalizedFullName)) {
+      return res
+        .status(400)
+        .json({ message: "Full name may contain letters and spaces only" });
+    }
+    if (normalizedFullName.length < 2 || normalizedFullName.length > 50) {
+      return res
+        .status(400)
+        .json({ message: "Full name must be between 2 and 50 characters" });
+    }
+
+    // Enhanced password validation
+    if (password.length < 8) {
+      return res.status(400).json({ 
+        message: "Password must be at least 8 characters long" 
+      });
+    }
+
+    // Check for at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must contain at least one uppercase letter (A-Z)" 
+      });
+    }
+
+    // Check for at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must contain at least one lowercase letter (a-z)" 
+      });
+    }
+
+    // Check for at least one number
+    if (!/\d/.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must contain at least one number (0-9)" 
+      });
+    }
+
+    // Check for at least one special character
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      return res.status(400).json({ 
+        message: "Password must contain at least one special character (!@#$%^&*()_+-=[]{}|;:,.<>?)" 
+      });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists, please use a diffrent one" });
     }
@@ -29,8 +76,8 @@ export async function signup(req, res) {
     const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
     const newUser = await User.create({
-      email,
-      fullName,
+      email: normalizedEmail,
+      fullName: normalizedFullName,
       password,
       profilePic: randomAvatar,
     });
@@ -57,7 +104,9 @@ export async function signup(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.status(201).json({ success: true, user: newUser });
+    const safeUser = newUser.toObject();
+    delete safeUser.password;
+    res.status(201).json({ success: true, user: safeUser });
   } catch (error) {
     console.log("Error in signup controller", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -72,7 +121,9 @@ export async function login(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const user = await User.findOne({ email });
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const user = await User.findOne({ email: normalizedEmail }).select("+password");
     if (!user) return res.status(401).json({ message: "Invalid email or password" });
 
     const isPasswordCorrect = await user.matchPassword(password);
@@ -89,7 +140,9 @@ export async function login(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.status(200).json({ success: true, user });
+    const safeUser = user.toObject();
+    delete safeUser.password;
+    res.status(200).json({ success: true, user: safeUser });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -120,12 +173,27 @@ export async function onboard(req, res) {
       });
     }
 
+    // Normalize and validate optional fullName during onboarding
+    let updatePayload = {
+      ...req.body,
+      isOnboarded: true,
+    };
+    if (typeof fullName === "string") {
+      const normalizedFullName = fullName.trim().replace(/\s+/g, " ");
+      if (!/^[A-Za-z\s]+$/.test(normalizedFullName)) {
+        return res.status(400).json({ message: "Full name may contain letters and spaces only" });
+      }
+      if (normalizedFullName.length < 2 || normalizedFullName.length > 50) {
+        return res
+          .status(400)
+          .json({ message: "Full name must be between 2 and 50 characters" });
+      }
+      updatePayload.fullName = normalizedFullName;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      {
-        ...req.body,
-        isOnboarded: true,
-      },
+      updatePayload,
       { new: true }
     );
 

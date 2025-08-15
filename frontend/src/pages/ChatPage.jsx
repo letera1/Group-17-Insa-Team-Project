@@ -76,7 +76,6 @@ const ChatPage = () => {
         setLoading(false);
       }
     };
-
     initChat();
   }, [tokenData, authUser, targetUserId]);
 
