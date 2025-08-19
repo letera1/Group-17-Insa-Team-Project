@@ -27,11 +27,7 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const sanitized = {
-      email: loginData.email.trim().toLowerCase(),
-      password: loginData.password,
-    };
-    loginMutation(sanitized);
+    loginMutation(loginData);
   };
 
   return (
@@ -78,7 +74,6 @@ const LoginPage = () => {
                       className="input input-bordered w-full"
                       value={loginData.email}
                       onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                      autoComplete="email"
                       required
                     />
                   </div>
@@ -93,7 +88,6 @@ const LoginPage = () => {
                       className="input input-bordered w-full"
                       value={loginData.password}
                       onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                      autoComplete="current-password"
                       required
                     />
                   </div>

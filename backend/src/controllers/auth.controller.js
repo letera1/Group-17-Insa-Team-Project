@@ -10,64 +10,17 @@ export async function signup(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Normalize inputs
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedFullName = fullName.trim().replace(/\s+/g, " ");
-
-    // Validate full name (letters and spaces only, 2-50 chars)
-    if (!/^[A-Za-z\s]+$/.test(normalizedFullName)) {
-      return res
-        .status(400)
-        .json({ message: "Full name may contain letters and spaces only" });
-    }
-    if (normalizedFullName.length < 2 || normalizedFullName.length > 50) {
-      return res
-        .status(400)
-        .json({ message: "Full name must be between 2 and 50 characters" });
-    }
-
-    // Enhanced password validation
-    if (password.length < 8) {
-      return res.status(400).json({ 
-        message: "Password must be at least 8 characters long" 
-      });
-    }
-
-    // Check for at least one uppercase letter
-    if (!/[A-Z]/.test(password)) {
-      return res.status(400).json({ 
-        message: "Password must contain at least one uppercase letter (A-Z)" 
-      });
-    }
-
-    // Check for at least one lowercase letter
-    if (!/[a-z]/.test(password)) {
-      return res.status(400).json({ 
-        message: "Password must contain at least one lowercase letter (a-z)" 
-      });
-    }
-
-    // Check for at least one number
-    if (!/\d/.test(password)) {
-      return res.status(400).json({ 
-        message: "Password must contain at least one number (0-9)" 
-      });
-    }
-
-    // Check for at least one special character
-    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-      return res.status(400).json({ 
-        message: "Password must contain at least one special character (!@#$%^&*()_+-=[]{}|;:,.<>?)" 
-      });
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(normalizedEmail)) {
+    if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    const existingUser = await User.findOne({ email: normalizedEmail });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists, please use a diffrent one" });
     }
@@ -76,8 +29,8 @@ export async function signup(req, res) {
     const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
     const newUser = await User.create({
-      email: normalizedEmail,
-      fullName: normalizedFullName,
+      email,
+      fullName,
       password,
       profilePic: randomAvatar,
     });
@@ -104,9 +57,7 @@ export async function signup(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    const safeUser = newUser.toObject();
-    delete safeUser.password;
-    res.status(201).json({ success: true, user: safeUser });
+    res.status(201).json({ success: true, user: newUser });
   } catch (error) {
     console.log("Error in signup controller", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -121,9 +72,7 @@ export async function login(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
-
-    const user = await User.findOne({ email: normalizedEmail }).select("+password");
+    const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid email or password" });
 
     const isPasswordCorrect = await user.matchPassword(password);
@@ -140,9 +89,7 @@ export async function login(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    const safeUser = user.toObject();
-    delete safeUser.password;
-    res.status(200).json({ success: true, user: safeUser });
+    res.status(200).json({ success: true, user });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -173,27 +120,12 @@ export async function onboard(req, res) {
       });
     }
 
-    // Normalize and validate optional fullName during onboarding
-    let updatePayload = {
-      ...req.body,
-      isOnboarded: true,
-    };
-    if (typeof fullName === "string") {
-      const normalizedFullName = fullName.trim().replace(/\s+/g, " ");
-      if (!/^[A-Za-z\s]+$/.test(normalizedFullName)) {
-        return res.status(400).json({ message: "Full name may contain letters and spaces only" });
-      }
-      if (normalizedFullName.length < 2 || normalizedFullName.length > 50) {
-        return res
-          .status(400)
-          .json({ message: "Full name must be between 2 and 50 characters" });
-      }
-      updatePayload.fullName = normalizedFullName;
-    }
-
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      updatePayload,
+      {
+        ...req.body,
+        isOnboarded: true,
+      },
       { new: true }
     );
 
@@ -213,6 +145,108 @@ export async function onboard(req, res) {
     res.status(200).json({ success: true, user: updatedUser });
   } catch (error) {
     console.error("Onboarding error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function updateProfile(req, res) {
+  try {
+    const userId = req.user._id;
+    const {
+      fullName,
+      email,
+      bio,
+      nativeLanguage,
+      learningLanguage,
+      location,
+      profilePic,
+      currentPassword,
+      newPassword,
+    } = req.body;
+
+    if (!fullName || !email) {
+      return res.status(400).json({ message: "Full name and email are required" });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    if (email !== req.user.email) {
+      const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email already exists" });
+      }
+    }
+
+    // If password is being changed, we must load the full user (with password) and use .save() to trigger hashing
+    if (currentPassword && newPassword) {
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      const isCurrentPasswordCorrect = await user.matchPassword(currentPassword);
+      if (!isCurrentPasswordCorrect) {
+        return res.status(400).json({ message: "Current password is incorrect" });
+      }
+
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: "New password must be at least 6 characters" });
+      }
+
+      user.fullName = fullName.trim();
+      user.email = email.trim().toLowerCase();
+      user.bio = bio?.trim() || "";
+      user.nativeLanguage = nativeLanguage || "";
+      user.learningLanguage = learningLanguage || "";
+      user.location = location?.trim() || "";
+      user.profilePic = profilePic || user.profilePic;
+      user.password = newPassword; // will be hashed by pre-save hook
+
+      const savedUser = await user.save();
+
+      try {
+        await upsertStreamUser({
+          id: savedUser._id.toString(),
+          name: savedUser.fullName,
+          image: savedUser.profilePic || "",
+        });
+        console.log(`Stream user updated for ${savedUser.fullName}`);
+      } catch (streamError) {
+        console.log("Error updating Stream user:", streamError.message);
+      }
+
+      return res.status(200).json({ success: true, user: savedUser });
+    }
+
+    // No password change: safe to use findByIdAndUpdate
+    const updateData = {
+      fullName: fullName.trim(),
+      email: email.trim().toLowerCase(),
+      bio: bio?.trim() || "",
+      nativeLanguage: nativeLanguage || "",
+      learningLanguage: learningLanguage || "",
+      location: location?.trim() || "",
+      profilePic: profilePic || req.user.profilePic,
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+
+    try {
+      await upsertStreamUser({
+        id: updatedUser._id.toString(),
+        name: updatedUser.fullName,
+        image: updatedUser.profilePic || "",
+      });
+      console.log(`Stream user updated for ${updatedUser.fullName}`);
+    } catch (streamError) {
+      console.log("Error updating Stream user:", streamError.message);
+    }
+
+    return res.status(200).json({ success: true, user: updatedUser });
+  } catch (error) {
+    console.error("Update profile error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }

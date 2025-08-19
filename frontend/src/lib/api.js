@@ -29,6 +29,11 @@ export const completeOnboarding = async (userData) => {
   return response.data;
 };
 
+export const updateProfile = async (userData) => {
+  const response = await axiosInstance.put("/auth/profile", userData);
+  return response.data;
+};
+
 export const uploadAvatar = async (file) => {
   const formData = new FormData();
   formData.append("avatar", file);
