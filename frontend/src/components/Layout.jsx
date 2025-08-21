@@ -6,7 +6,7 @@ const Layout = ({ children, showSidebar = false }) => {
   // Initialize friend request notifications
   useFriendRequestNotifications();
 
-
+  
   return (
     <div className="min-h-screen">
       <div className="flex">
@@ -20,6 +20,6 @@ const Layout = ({ children, showSidebar = false }) => {
         </div>
       </div>
     </div>
-  );
+  )
 };
 export default Layout;
