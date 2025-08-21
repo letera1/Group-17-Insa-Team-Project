@@ -1,29 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const NoFriendsFound = () => {
   return (
     <div className="card bg-base-200 p-6 text-center">
