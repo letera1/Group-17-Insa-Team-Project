@@ -33,6 +33,7 @@ const Navbar = () => {
 
   const { logoutMutation } = useLogout();
 
+  
   return (
     <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-14 sm:h-16 flex items-center">
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
@@ -49,6 +50,7 @@ const Navbar = () => {
             </div>
           )}
 
+          
           {/* Right side items */}
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 ml-auto">
             {/* Notifications */}
@@ -66,7 +68,8 @@ const Navbar = () => {
             {/* Theme Selector */}
             <div className="hidden sm:block">
               <ThemeSelector />
-            </div>
+            </div
+            
 
             {/* Avatar - Clickable */}
             <div 
@@ -83,6 +86,7 @@ const Navbar = () => {
                 />
               </div>
             </div>
+            
 
             {/* Logout button */}
             <button className="btn btn-ghost btn-circle btn-sm sm:btn-md" onClick={logoutMutation}>
@@ -91,6 +95,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      
 
       {/* Profile Edit Modal */}
       <ProfileEditModal
@@ -102,3 +107,7 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+
+
+
+
