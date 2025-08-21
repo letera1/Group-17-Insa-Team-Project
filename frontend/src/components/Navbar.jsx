@@ -6,12 +6,24 @@ import ThemeSelector from "./ThemeSelector";
 import useLogout from "../hooks/useLogout";
 import ProfileEditModal from "./ProfileEditModal";
 import messageIcon from '../public/logo.png'; // Ensure this path is correct
+import { useQuery } from "@tanstack/react-query";
+import { getFriendRequests } from "../lib/api";
 
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
+  // Get friend requests for notification badge
+  const { data: friendRequests } = useQuery({
+    queryKey: ['friendRequests'],
+    queryFn: getFriendRequests,
+    refetchInterval: 10000, // 10 seconds
+    enabled: !!authUser,
+  });
+
+  const unreadRequestsCount = friendRequests?.incomingReqs?.length || 0;
 
   // const queryClient = useQueryClient();
   // const { mutate: logoutMutation } = useMutation({
@@ -41,8 +53,13 @@ const Navbar = () => {
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 ml-auto">
             {/* Notifications */}
             <Link to={"/notifications"}>
-              <button className="btn btn-ghost btn-circle btn-sm sm:btn-md">
+              <button className="btn btn-ghost btn-circle btn-sm sm:btn-md relative">
                 <BellIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-base-content opacity-70" />
+                {unreadRequestsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                    {unreadRequestsCount > 9 ? '9+' : unreadRequestsCount}
+                  </span>
+                )}
               </button>
             </Link>
 

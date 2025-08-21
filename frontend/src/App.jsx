@@ -15,6 +15,7 @@ import useAuthUser from "./hooks/useAuthUser.js";
 import Layout from "./components/Layout.jsx";
 import { useThemeStore } from "./store/useThemeStore.js";
 import Footer from "./components/Footer.jsx";
+import NotificationPopup from "./components/NotificationPopup.jsx";
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
@@ -132,6 +133,7 @@ const App = () => {
      
           <Footer />  
 
+      <NotificationPopup />
       <Toaster />
     </div>
   );

@@ -1,8 +1,11 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-
+import useFriendRequestNotifications from "../hooks/useFriendRequestNotifications";
 
 const Layout = ({ children, showSidebar = false }) => {
+  // Initialize friend request notifications
+  useFriendRequestNotifications();
+
   return (
     <div className="min-h-screen">
       <div className="flex">

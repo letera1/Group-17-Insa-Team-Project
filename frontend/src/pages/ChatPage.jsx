@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
+import useFriendRequestNotifications from "../hooks/useFriendRequestNotifications";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api";
 import { ArrowLeft } from "lucide-react";
@@ -31,6 +32,9 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(true);
 
   const { authUser } = useAuthUser();
+  
+  // Initialize friend request notifications
+  useFriendRequestNotifications();
 
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
+import useFriendRequestNotifications from "../hooks/useFriendRequestNotifications";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api";
 
@@ -28,6 +29,9 @@ const CallPage = () => {
   const [isConnecting, setIsConnecting] = useState(true);
 
   const { authUser, isLoading } = useAuthUser();
+  
+  // Initialize friend request notifications
+  useFriendRequestNotifications();
 
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],
