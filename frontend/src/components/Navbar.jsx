@@ -8,13 +8,11 @@ import ProfileEditModal from "./ProfileEditModal";
 import messageIcon from '../public/logo.png'; // Ensure this path is correct
 import { useQuery } from "@tanstack/react-query";
 import { getFriendRequests } from "../lib/api";
-
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-
   // Get friend requests for notification badge
   const { data: friendRequests } = useQuery({
     queryKey: ['friendRequests'],
@@ -22,7 +20,6 @@ const Navbar = () => {
     refetchInterval: 10000, // 10 seconds
     enabled: !!authUser,
   });
-
   const unreadRequestsCount = friendRequests?.incomingReqs?.length || 0;
 
   // const queryClient = useQueryClient();
@@ -32,8 +29,6 @@ const Navbar = () => {
   // });
 
   const { logoutMutation } = useLogout();
-
-  
   return (
     <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-14 sm:h-16 flex items-center">
       <div className="container mx-auto px-3 sm:px-4 lg:px-8">
@@ -49,7 +44,6 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-
           
           {/* Right side items */}
           <div className="flex items-center gap-1 sm:gap-2 lg:gap-3 ml-auto">
@@ -64,13 +58,11 @@ const Navbar = () => {
                 )}
               </button>
             </Link>
-
             {/* Theme Selector */}
             <div className="hidden sm:block">
               <ThemeSelector />
             </div
-            
-
+             
             {/* Avatar - Clickable */}
             <div 
               className="avatar cursor-pointer tooltip tooltip-bottom" 
