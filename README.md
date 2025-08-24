@@ -1,19 +1,6 @@
 # 🌍✨ Language Exchange Platform - Chat & Video Calling App  
   
-<div align="center">  
-    
-![Language Exchange Platform](https://img.shields.io/badge/Language-Exchange-brightgreen?style=for-the-badge)  
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)  
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)  
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)  
-  
-*Connect, Learn, and Practice Languages Together* 🗣️💬  
-  
-</div>  
-  
----  
-  
+ 
 ## 🎯 **What is this Project?**  
   
 This is a **comprehensive language exchange platform** that connects language learners from around the world. Users can practice languages through real-time messaging and video calls, making language learning interactive and engaging! [0-cite-0](#0-cite-0)   
