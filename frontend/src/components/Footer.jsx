@@ -4,7 +4,7 @@ const Footer = () => {
         <p>© 2025 INSA , Language Learning Platform</p>
       </footer>
     );
-  };
-  
+  }; 
   export default Footer;
+
 
