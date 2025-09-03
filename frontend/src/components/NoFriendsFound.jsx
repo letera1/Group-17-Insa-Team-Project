@@ -8,5 +8,4 @@ const NoFriendsFound = () => {
     </div>
   );
 };
-
 export default NoFriendsFound;
