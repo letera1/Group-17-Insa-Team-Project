@@ -1,5 +1,4 @@
 import { LoaderIcon } from "lucide-react";
-
 function ChatLoader() {
   return (
     <div className="h-screen flex flex-col items-center justify-center p-4">
@@ -8,5 +7,4 @@ function ChatLoader() {
     </div>
   );
 }
-
 export default ChatLoader;
