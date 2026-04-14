@@ -432,10 +432,10 @@ export const getLanguageInfo = (languageName) => {
     name: languageName,
     flag: LANGUAGE_TO_FLAG[normalizedName] || "un",
     nativeName: LANGUAGE_NATIVE_NAMES[normalizedName] || languageName,
-    family: Object.entries(LANGUAGE_FAMILIES).find(([_, languages]) => 
+    family: Object.entries(LANGUAGE_FAMILIES).find(([, languages]) => 
       languages.includes(normalizedName)
     )?.[0] || "other",
-    difficulty: Object.entries(LANGUAGE_DIFFICULTY).find(([_, languages]) => 
+    difficulty: Object.entries(LANGUAGE_DIFFICULTY).find(([, languages]) => 
       languages.includes(normalizedName)
     )?.[0] || "unknown",
     code: LANGUAGE_CODES[normalizedName] || normalizedName
