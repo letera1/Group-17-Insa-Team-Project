@@ -234,35 +234,98 @@ The app is configured for production deployment with static file serving: [0-cit
   
 ---  
   
-## 🤝 **Contributing**  
-  
-We welcome contributions! Here's how you can help:  
-  
-1. 🍴 **Fork** the repository  
-2. 🌟 **Create** a feature branch (`git checkout -b feature/AmazingFeature`)  
-3. 💾 **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)  
-4. 🚀 **Push** to the branch (`git push origin feature/AmazingFeature`)  
-5. 🔃 **Open** a Pull Request  
-  
----  
-  
-## 📄 **License**  
-  
-This project is open source and available under the [MIT License](LICENSE).  
-  
----  
-  
-## 🌟 **Show Your Support**  
-  
-If you like this project, please ⭐ star this repository and share it with others!  
-  
----  
-  
-<div align="center">  
-  
-**Made by Group 17 INSA Team**  
-  
-*Connecting Language Learners Worldwide* 🌍  
-  
+## 📚 **Documentation**
+
+- [API Documentation](docs/API.md) - Complete API reference
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
+- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
+- [Security Policy](SECURITY.md) - Security and vulnerability reporting
+- [Changelog](CHANGELOG.md) - Version history and updates
+
+---
+
+## 🤝 **Contributing**
+
+We welcome contributions from everyone! Whether you're fixing bugs, adding features, improving documentation, or spreading the word, your help is appreciated.
+
+### How to Contribute
+
+1. 🍴 **Fork** the repository
+2. 🌟 **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. 💾 **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. 🚀 **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. 🔃 **Open** a Pull Request
+
+Please read our [Contributing Guidelines](CONTRIBUTING.md) for detailed information.
+
+### Code of Conduct
+
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
+---
+
+## 🔒 **Security**
+
+Security is a top priority. If you discover a security vulnerability, please follow our [Security Policy](SECURITY.md) for responsible disclosure.
+
+**Do not report security vulnerabilities through public GitHub issues.**
+
+---
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License - Copyright (c) 2026 Group 17 INSA Team
+```
+
+---
+
+## 🌟 **Show Your Support**
+
+If you find this project helpful, please consider:
+
+- ⭐ **Starring** the repository
+- 🐛 **Reporting** bugs and issues
+- 💡 **Suggesting** new features
+- 📢 **Sharing** with others
+- 🤝 **Contributing** code or documentation
+
+---
+
+## 👥 **Contributors**
+
+Thanks to all the amazing people who have contributed to this project! See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the full list.
+
+---
+
+## 📞 **Support & Contact**
+
+- 📧 **Email**: [support@yourproject.com]
+- 🐛 **Issues**: [GitHub Issues](https://github.com/letera1/Group-17-Insa-Team-Project/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/letera1/Group-17-Insa-Team-Project/discussions)
+
+---
+
+## 🙏 **Acknowledgments**
+
+- **Stream.io** - For excellent chat and video SDKs
+- **MongoDB** - For the robust database solution
+- **React Team** - For the amazing frontend framework
+- **Open Source Community** - For inspiration and support
+- **All Contributors** - For making this project better
+
+---
+
+<div align="center">
+
+**Made with ❤️ by Group 17 INSA Team**
+
+*Connecting Language Learners Worldwide* 🌍
+
+[⬆ Back to Top](#-language-exchange-platform)
+
 </div>  
   
