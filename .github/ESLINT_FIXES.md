@@ -14,7 +14,7 @@ This document tracks the ESLint errors that were fixed to ensure CI/CD pipeline 
 
 #### 2. **frontend/src/components/FriendCard.jsx**
 - **Warning**: `Fast refresh only works when a file only exports components`
-- **Fix**: Moved `getLanguageFlag` function before the component definition to keep it in the same file but not as a separate export
+- **Fix**: Moved `getLanguageFlag` function to a separate utility file `frontend/src/lib/languageUtils.jsx`
 
 #### 3. **frontend/src/constants/index.js**
 - **Error**: `'_' is defined but never used` (line 435)
@@ -29,23 +29,46 @@ This document tracks the ESLint errors that were fixed to ensure CI/CD pipeline 
 - **Fix**: Removed unnecessary backslash before `/` in regex pattern
 - **Final regex**: `/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/`
 
+#### 5. **Build Error - Module Export Issue**
+- **Error**: `"getLanguageFlag" is not exported by "src/components/FriendCard.jsx"`
+- **Fix**: Created new utility file `frontend/src/lib/languageUtils.jsx` to export `getLanguageFlag` function
+- **Files Updated**:
+  - Created: `frontend/src/lib/languageUtils.jsx`
+  - Updated: `frontend/src/components/FriendCard.jsx` (import from new utility)
+  - Updated: `frontend/src/pages/HomePage.jsx` (import from new utility)
+
 ### Summary
 
-All 5 errors and 1 warning have been resolved:
+All 5 errors, 1 warning, and 1 build error have been resolved:
 - ✅ Removed unused variables
 - ✅ Fixed regex escape characters
 - ✅ Improved component export structure
 - ✅ Fixed destructuring patterns
+- ✅ Created shared utility for language flag function
+- ✅ Build completes successfully
+
+### New Files Created
+
+#### `frontend/src/lib/languageUtils.jsx`
+Utility file for language-related helper functions:
+- `getLanguageFlag(language)` - Returns flag image element for a given language
 
 ### Verification
 
-Run the following command to verify:
+Run the following commands to verify:
 ```bash
 cd frontend
+
+# Check linting
 npm run lint
+
+# Check build
+npm run build
 ```
 
-Expected output: No errors or warnings
+Expected output: 
+- ✅ Linting: No errors or warnings
+- ✅ Build: Successful (Exit Code: 0)
 
 ### CI/CD Pipeline Status
 
@@ -59,8 +82,9 @@ After these fixes, the following CI/CD jobs should pass:
 
 1. **No Unused Variables**: All declared variables are now used
 2. **Proper Regex Escaping**: Only necessary escape characters in regex patterns
-3. **Component Export Structure**: Functions used only within components are defined before the component
+3. **Shared Utilities**: Common functions moved to utility files for reusability
 4. **Destructuring**: Use comma for skipping array elements instead of underscore
+5. **File Extensions**: Use `.jsx` extension for files containing JSX syntax
 
 ### Future Prevention
 
@@ -71,17 +95,23 @@ To prevent similar issues:
    ```bash
    npm run lint
    ```
-3. **Use pre-commit hooks** (husky + lint-staged)
-4. **Review ESLint warnings** - they often indicate potential issues
+3. **Test build locally**:
+   ```bash
+   npm run build
+   ```
+4. **Use pre-commit hooks** (husky + lint-staged)
+5. **Review ESLint warnings** - they often indicate potential issues
+6. **Keep shared utilities in lib folder** - Don't export non-component functions from component files
 
 ### Related Files
 
 - [ESLint Config](../frontend/eslint.config.js)
 - [CI/CD Workflow](workflows/ci.yml)
 - [Contributing Guidelines](../CONTRIBUTING.md)
+- [Pre-Commit Checklist](PRE_COMMIT_CHECKLIST.md)
 
 ---
 
 **Fixed by**: Kiro AI Assistant  
 **Date**: April 14, 2026  
-**Status**: ✅ All issues resolved
+**Status**: ✅ All issues resolved - Build successful!
