@@ -20,7 +20,6 @@ import NotificationPopup from "./components/NotificationPopup.jsx";
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
   const { theme } = useThemeStore();
-  const location = useLocation();
 
   const isAuthenticated = Boolean(authUser);
   const isOnboarded = authUser?.isOnboarded;
