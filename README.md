@@ -238,12 +238,19 @@ The app is configured for production deployment with static file serving: [0-cit
   
 ## 📚 **Documentation**
 
-- [API Documentation](docs/API.md) - Complete API reference
-- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
-- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
-- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
-- [Security Policy](SECURITY.md) - Security and vulnerability reporting
-- [Changelog](CHANGELOG.md) - Version history and updates
+Comprehensive documentation to help you get started and contribute:
+
+| Document | Description |
+|----------|-------------|
+| [Setup Guide](docs/SETUP.md) | Complete development environment setup |
+| [API Documentation](docs/API.md) | REST API endpoints and usage |
+| [Architecture](docs/ARCHITECTURE.md) | System design and technical details |
+| [Deployment Guide](docs/DEPLOYMENT.md) | Production deployment instructions |
+| [Project Structure](PROJECT_STRUCTURE.md) | File organization and conventions |
+| [Contributing](CONTRIBUTING.md) | How to contribute to the project |
+| [Code of Conduct](CODE_OF_CONDUCT.md) | Community guidelines |
+| [Security Policy](SECURITY.md) | Security and vulnerability reporting |
+| [Changelog](CHANGELOG.md) | Version history and updates |
 
 ---
 
