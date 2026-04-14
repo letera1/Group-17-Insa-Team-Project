@@ -27,10 +27,6 @@ const App = () => {
 
   if (isLoading) return <PageLoader />;
 
-  // Pages where footer should NOT appear
-  const noFooterRoutes = ["/login", "/signup", "/onboarding"];
-  const hideFooter = noFooterRoutes.includes(location.pathname);
-
   return (
     <div className="flex flex-col min-h-screen" data-theme={theme}>
       {/* Main content grows */}
