@@ -69,14 +69,16 @@ graph TB
   
 ---  
   
-## 🚀 **How to Get Started**  
-  
-### 📋 **Prerequisites**  
-  
-Before you begin, ensure you have:  
-- **Node.js** (v16 or higher)  
-- **MongoDB** (local or cloud instance)  
-- **Stream Account** (for chat and video features)  
+## 🚀 **Quick Start**
+
+### 📋 **Prerequisites**
+
+- **Node.js** 18.x or higher
+- **MongoDB** (local or MongoDB Atlas)
+- **Stream.io Account** (for chat and video features)
+- **Git** for version control
+
+For detailed setup instructions, see our [Setup Guide](docs/SETUP.md).  
   
 ### ⚙️ **Environment Setup**  
   
